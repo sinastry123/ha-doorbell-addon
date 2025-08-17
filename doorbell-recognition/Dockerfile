@@ -11,8 +11,8 @@ RUN apk add --no-cache \
     py3-pillow \
     ffmpeg
 
-# Create virtual environment and install pyftpdlib
-RUN python3 -m venv /opt/venv \
+# Create virtual environment with system site packages access
+RUN python3 -m venv --system-site-packages /opt/venv \
     && /opt/venv/bin/pip install --no-cache-dir pyftpdlib
 
 # Set PATH to use virtual environment
