@@ -1,6 +1,6 @@
 name: "Doorbell Facial Recognition"
 description: "Complete doorbell system with FTP server and facial recognition"
-version: "1.0.0"
+version: "1.0.1"
 slug: "doorbell_recognition"
 init: false
 arch:
