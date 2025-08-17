@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Install Python and dependencies
+# Install Python and dependencies using apk only
 RUN apk add --no-cache \
     python3 \
     py3-pip \
@@ -10,11 +10,8 @@ RUN apk add --no-cache \
     py3-requests \
     py3-pillow \
     ffmpeg \
-    && pip3 install --no-cache-dir \
-        opencv-python-headless \
-        pyftpdlib \
-        requests \
-        Pillow
+    && pip3 install --break-system-packages --no-cache-dir \
+        pyftpdlib
 
 # Set working directory
 WORKDIR /data
