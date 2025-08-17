@@ -1,7 +1,7 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:latest
 FROM $BUILD_FROM
 
-# Install Python and dependencies using apk only
+# Install system packages only
 RUN apk add --no-cache \
     python3 \
     py3-pip \
@@ -9,27 +9,30 @@ RUN apk add --no-cache \
     py3-opencv \
     py3-requests \
     py3-pillow \
-    ffmpeg \
-    && pip3 install --break-system-packages --no-cache-dir \
-        pyftpdlib
+    ffmpeg
+
+# Create virtual environment and install pyftpdlib
+RUN python3 -m venv /opt/venv \
+    && /opt/venv/bin/pip install --no-cache-dir pyftpdlib
+
+# Set PATH to use virtual environment
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Set working directory
 WORKDIR /data
 
-# Copy the Python script
+# Copy files
 COPY doorbell_recognition.py /
 COPY run.sh /
 
-# Make the scripts executable
-RUN chmod a+x /run.sh
-RUN chmod a+x /doorbell_recognition.py
+# Make executable
+RUN chmod a+x /run.sh /doorbell_recognition.py
 
 # Create directories
-RUN mkdir -p /data/ftp_doorbell/faces
-RUN mkdir -p /config/www/doorbell
+RUN mkdir -p /data/ftp_doorbell/faces /config/www/doorbell
 
-# Expose FTP ports
+# Expose ports
 EXPOSE 2121 60000-60009
 
-# Start the service
+# Start
 CMD ["/run.sh"]
