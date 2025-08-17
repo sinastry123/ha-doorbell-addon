@@ -1,0 +1,56 @@
+name: "Doorbell Facial Recognition"
+description: "Complete doorbell system with FTP server and facial recognition"
+version: "1.0.0"
+slug: "doorbell_recognition"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: services
+boot: auto
+host_network: true
+ports:
+  2121/tcp: 2121
+  60000/tcp: 60000
+  60001/tcp: 60001
+  60002/tcp: 60002
+  60003/tcp: 60003
+  60004/tcp: 60004
+  60005/tcp: 60005
+  60006/tcp: 60006
+  60007/tcp: 60007
+  60008/tcp: 60008
+  60009/tcp: 60009
+map:
+  - config:rw
+  - media:rw
+  - share:rw
+options:
+  compreface_url: "http://192.168.50.248:8000"
+  detection_api_key: "169e3bdc-ae84-40ec-a26b-e3fe3f144631"
+  recognition_api_key: "c67f39c9-606f-40dc-8e72-c9758d20ab7b"
+  ha_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1YzYzYmRhODJjMTI0MDIzYTNlNTNhYzc1ZTcyMzM5MyIsImlhdCI6MTc1NTI0MTQ4OSwiZXhwIjoyMDcwNjAxNDg5fQ.MNi9FWp31XV4p3-L9hTJQQNEkv_sJ4qLQASjPnqRmjk"
+  notification_target: "mobile_app_harrys_iphone"
+  tts_entity_id: "media_player.caravan_roof_wifi"
+  tts_kitchen_entity_id: "media_player.kitchen_wifi"
+  ftp_username: "reolink"
+  ftp_password: "camera123"
+  recognition_confidence: 0.7
+  detection_confidence: 0.6
+  max_frames: 10
+schema:
+  compreface_url: str
+  detection_api_key: str
+  recognition_api_key: str
+  ha_token: str
+  notification_target: str
+  tts_entity_id: str
+  tts_kitchen_entity_id: str
+  ftp_username: str
+  ftp_password: str
+  recognition_confidence: float(0.1,1.0)
+  detection_confidence: float(0.1,1.0)
+  max_frames: int(5,50)
